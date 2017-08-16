@@ -3,63 +3,64 @@ import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
+// step components
+import Step1 from './Step1';
+import Step2 from './Step2';
 
-class FetchDemo extends React.Component {
+class Cart extends React.Component{
   constructor(props) {
     super(props);
 
     this.state = {
       cart : [],
-      step: "Ваш заказ"
+      step: {
+        component: "Step1",
+        title: "Ваш заказ",
+        stepnum:1
+      }
     };
-  }
-
-  componentDidMount() {
-    var that = this;
-    var url = 'http://localhost:3001/cart';
-
-    axios.get(url)
-      .then(res => {
-        const cart = res.data.map(obj => obj.data);
-        this.setState({ cart });
-        console.log({cart})
-      });
-  }
+  };
 
   render() {
-    return (
-      <div  className="container">
-        <h1>{this.state.step}</h1>
-        <div className="row">
-        <table className="table table-striped table-responsive">
-            <thead>
-              <tr>
-                <th>img</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>count</th>
-              </tr>
-            </thead>
-            <tbody>
-            {this.state.cart.map(cartitem =>
-              <tr key={cartitem.id}>
-                <th><img src={cartitem.image} className="img-fluid rounded" width="50px"/></th>
-                <td>{cartitem.title}</td>
-                <td>{cartitem.price}</td>
-                <td>{cartitem.count}</td>
-              </tr>
-            )}
-            </tbody>
-          </table>
+    switch(this.state.step.stepnum) {
+      case 1:
+        return (
+          <div>
+          <Step1 />
+          <button className="btn btn-primary" onClick={this.setState({ step: {
+            component: "Step2",
+            title: "Выбор доставки",
+            stepnum:2
+          }
+       })}>Выбор доставки</button>
+          </div>
+        )
+        break;
 
+      case 2:
+      return (
+        <div>
+        <Step2 />
+        <button className="btn btn-primary" onClick={this.setState({ step: {
+          component: "Step2",
+          title: "Выбор доставки",
+          stepnum:2
+        }
+     })}>Выбор доставки</button>
         </div>
+      )
+        break;
 
+      default:
+        console.log('default')
+        break;
+    }
+    if(this.state.step.stepnum == 1){
 
-      </div>
-    );
+    }
   }
 }
 
 
 
-export default FetchDemo;
+export default Cart;
