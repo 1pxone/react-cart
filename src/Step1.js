@@ -30,7 +30,7 @@ class Step1 extends React.Component {
   render() {
     return (
       <div  className="container">
-        <h1>{this.state.step.title}</h1>
+        <h1>{this.props.heading}</h1>
         <div className="row">
         <table className="table table-striped table-responsive">
             <thead>
