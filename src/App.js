@@ -19,20 +19,44 @@ class Cart extends React.Component{
         stepnum:1
       }
     };
+    this.previous = this.previous.bind(this);
+    this.next = this.next.bind(this);
   };
+
+
+  previous(){
+    this.setState({
+      cart: this.state.cart,
+      step: {
+        component: "Step1",
+        title: "Ваш заказ",
+        stepnum:1
+      }
+    });
+  }
+
+  next(){
+    this.setState({
+      cart: this.state.cart,
+      step: {
+        component: "Step1",
+        title: "Выбор доставки",
+        stepnum:2
+      }
+    });
+  }
+
+
 
   render() {
     switch(this.state.step.stepnum) {
       case 1:
         return (
           <div>
-          <Step1 />
-          <button className="btn btn-primary" onClick={this.setState({ step: {
-            component: "Step2",
-            title: "Выбор доставки",
-            stepnum:2
-          }
-       })}>Выбор доставки</button>
+            <Step1 />
+            <button onClick={this.next}>
+              Выбор доставки
+            </button>
           </div>
         )
         break;
@@ -40,13 +64,10 @@ class Cart extends React.Component{
       case 2:
       return (
         <div>
-        <Step2 />
-        <button className="btn btn-primary" onClick={this.setState({ step: {
-          component: "Step2",
-          title: "Выбор доставки",
-          stepnum:2
-        }
-     })}>Выбор доставки</button>
+          <Step2 />
+          <button onClick={this.previous}>
+            Назад
+          </button>
         </div>
       )
         break;
@@ -54,9 +75,6 @@ class Cart extends React.Component{
       default:
         console.log('default')
         break;
-    }
-    if(this.state.step.stepnum == 1){
-
     }
   }
 }

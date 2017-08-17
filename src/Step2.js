@@ -8,9 +8,9 @@ class Step2 extends React.Component {
     this.state = {
       cart : [],
       step: {
-        component: "step1",
+        component: "step2",
         title: "Выбор доставки",
-        stepnum:1
+        stepnum:2
       }
     };
   }
@@ -32,26 +32,7 @@ class Step2 extends React.Component {
       <div  className="container">
         <h1>{this.state.step.title}</h1>
         <div className="row">
-        <table className="table table-striped table-responsive">
-            <thead>
-              <tr>
-                <th>img</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>count</th>
-              </tr>
-            </thead>
-            <tbody>
-            {this.state.cart.map(cartitem =>
-              <tr key={cartitem.id}>
-                <th><img src={cartitem.image} className="img-fluid rounded" width="50px"/></th>
-                <td>{cartitem.title}</td>
-                <td>{cartitem.price}</td>
-                <td>{cartitem.count}</td>
-              </tr>
-            )}
-            </tbody>
-          </table>
+        <p>У вас нет адресов! Добавить?</p>
 
         </div>
 
