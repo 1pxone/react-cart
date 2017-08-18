@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 class Step1 extends React.Component {
@@ -6,24 +6,19 @@ class Step1 extends React.Component {
     super(props);
 
     this.state = {
-      cart : [],
-      step: {
-        component: "step1",
-        title: "Ваш заказ",
-        stepnum:1
-      }
+      cart : []
     };
   }
 
   componentDidMount() {
-    var that = this;
+    // var that = this;
     var url = 'http://localhost:3001/cart';
 
     axios.get(url)
       .then(res => {
         const cart = res.data.map(obj => obj.data);
         this.setState({ cart });
-        console.log({cart})
+        // console.log({cart})
       });
   }
 

@@ -1,52 +1,15 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
+import React from 'react';
+// import axios from 'axios';
+// import logo from './logo.svg';
 import './App.css';
-import Form from "react-jsonschema-form";
+// import Form from "react-jsonschema-form";
 
 // step components
 import Step1 from './Step1';
 import Step2 from './Step2';
+import Step3 from './Step3';
+import Step4 from './Step4';
 
-const registerForm = {
-  "title": "A registration form",
-  "description": "A simple form example.",
-  "type": "object",
-  "required": [
-    "firstName",
-    "lastName"
-  ],
-  "properties": {
-    "firstName": {
-      "type": "string",
-      "title": "First name"
-    },
-    "lastName": {
-      "type": "string",
-      "title": "Last name"
-    },
-    "age": {
-      "type": "integer",
-      "title": "Age"
-    },
-    "bio": {
-      "type": "string",
-      "title": "Bio"
-    },
-    "password": {
-      "type": "string",
-      "title": "Password",
-      "minLength": 3
-    },
-    "telephone": {
-      "type": "string",
-      "title": "Telephone",
-      "minLength": 10
-    }
-  }
-};
-
-const log = (type) => console.log.bind(console, type);
 
 class Cart extends React.Component{
   constructor(props) {
@@ -81,32 +44,45 @@ class Cart extends React.Component{
     this.next = this.next.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.toPayment = this.toPayment.bind(this);
   };
 
 
-  previous(){
+  previous(count){
     this.setState({
       cart: this.state.cart,
       user: this.state.user,
       step: {
         component: "Step1",
         title: "Ваш заказ",
-        stepnum:1
+        stepnum:this.state.step.stepnum - 1
       }
     });
   }
 
-  next(){
+  next(count){
     this.setState({
       cart: this.state.cart,
       user: this.state.user,
       step: {
         component: "Step1",
         title: "Выбор доставки",
-        stepnum:2
+        stepnum: this.state.step.stepnum + 1
       }
     });
   }
+  toPayment(){
+    this.setState({
+      cart: this.state.cart,
+      user: this.state.user,
+      step: {
+        component: "Step4",
+        title: "Выбор оплаты",
+        stepnum:3
+      }
+    });
+  }
+
 
   login(){
     this.setState({
@@ -138,66 +114,152 @@ class Cart extends React.Component{
     switch(this.state.step.stepnum) {
       case 1:
         return (
-          <div>
+          <div className="container">
+            <div className="row text-center">
+              <div className="col">
+                <button className="btn btn-primary">
+                  Корзина
+                </button>
+              </div>
+              <div className="col">
+                <button className="btn btn-info" disabled="disabled">
+                  Выбор доставки
+                </button>
+              </div>
+              <div className="col">
+                <button className="btn btn-info" disabled="disabled">
+                  Выбор оплаты
+                </button>
+              </div>
+              <div className="col">
+                <button  className="btn btn-info" disabled="disabled">
+                  Подтверждение
+                </button>
+              </div>
+            </div>
             <Step1 heading="Ваш заказ"/>
-            <button onClick={this.next}>
+            <button onClick={this.next} className="btn btn-primary">
               Выбор доставки
             </button>
           </div>
         )
-        break;
-
+        // break;
       case 2:
         switch(this.state.user.isAuth) {
           case true:
             return (
-              <div>
-                <Step2 heading="Выбор доставки"/>
-                <button onClick={this.logout}>
+              <div className="container">
+                <div className="row text-center">
+                  <div className="col">
+                    <button onClick={this.previous} className="btn btn-success">
+                      Корзина
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button className="btn btn-primary">
+                      Выбор доставки
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button className="btn btn-info" disabled="disabled">
+                      Выбор оплаты
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button  className="btn btn-info" disabled="disabled">
+                      Подтверждение
+                    </button>
+                  </div>
+                </div>
+                <Step3 heading="Выбор доставки"/>
+                <button onClick={this.logout} className="btn btn-primary">
                   Выйти
                 </button>
-                <button onClick={this.previous}>
+                <button onClick={this.previous} className="btn btn-primary">
                   Назад
                 </button>
-
+                <button onClick={this.next} className="btn btn-primary">
+                  Выбор оплаты
+                </button>
               </div>
             )
-            break;
-
+            // break;
           case false:
-          return (
-            <div className="container">
-            <div className="row">
-              <p>вы войдите сначала, молодой человек, ну или зарегистрируйтесь в конце-то концов!</p>
+            return (
+              <div className="container">
+                <div className="row text-center">
+                  <div className="col">
+                    <button onClick={this.previous} className="btn btn-success">
+                      Корзина
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button className="btn btn-primary">
+                      Выбор доставки
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button className="btn btn-info" disabled="disabled">
+                      Выбор оплаты
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button  className="btn btn-info" disabled="disabled">
+                      Подтверждение
+                    </button>
+                  </div>
+                </div>
+                <Step2 heading="Войти / Зарегистрироваться"/>
+                <div className="row">
+                <button onClick={this.login} className="btn btn-primary">
+                  Войти
+                </button>
+                <button onClick={this.previous} className="btn btn-primary">
+                  Назад
+                </button>
+                </div>
               </div>
-              <div className="row">
-              <Form className="col-md-6"
-              schema={registerForm}
-              onChange={log("changed")}
-              onSubmit={log("submitted")}
-              onError={log("errors")} />
-              </div>
-              <div className="row">
-              <button onClick={this.login}>
-                Войти
-              </button>
-              <button onClick={this.previous}>
-                Назад
-              </button>
-              </div>
-            </div>
-          )
-            break;
+            )
 
+            // break;
           default:
-            console.log('default')
             break;
         }
 
         break;
-
+      case 3:
+        return (
+          <div className="container">
+            <div className="row text-center">
+              <div className="col">
+                <button onClick={this.previous} className="btn btn-success">
+                  Корзина
+                </button>
+              </div>
+              <div className="col">
+                <button onClick={this.previous} className="btn btn-success">
+                  Выбор доставки
+                </button>
+              </div>
+              <div className="col">
+                <button className="btn btn-primary">
+                  Выбор оплаты
+                </button>
+              </div>
+              <div className="col">
+                <button  className="btn btn-info" disabled="disabled">
+                  Подтверждение
+                </button>
+              </div>
+            </div>
+            <Step4 heading="Выбор оплаты"/>
+            <button onClick={this.previous} className="btn btn-primary">
+              Назад
+            </button>
+          </div>
+        )
+        // break;
       default:
-        console.log('default')
         break;
     }
   }
