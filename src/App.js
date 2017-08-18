@@ -167,17 +167,24 @@ class Cart extends React.Component{
           case false:
           return (
             <div className="container">
+            <div className="row">
               <p>вы войдите сначала, молодой человек, ну или зарегистрируйтесь в конце-то концов!</p>
-              <Form schema={registerForm}
+              </div>
+              <div className="row">
+              <Form className="col-md-6"
+              schema={registerForm}
               onChange={log("changed")}
               onSubmit={log("submitted")}
               onError={log("errors")} />
+              </div>
+              <div className="row">
               <button onClick={this.login}>
                 Войти
               </button>
               <button onClick={this.previous}>
                 Назад
               </button>
+              </div>
             </div>
           )
             break;

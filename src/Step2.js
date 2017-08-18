@@ -3,13 +3,17 @@ import axios from 'axios';
 
 import Form from "react-jsonschema-form";
 
-const schema = {
-  title: "Todo",
+const newAdress = {
+  title: "Добавить новый адрес",
   type: "object",
   required: ["title"],
   properties: {
-    title: {type: "string", title: "Title", default: "A new task"},
-    done: {type: "boolean", title: "Done?", default: false}
+    title: {type: "string", title: "Название", default: "Домашний адрес"},
+    country: {type: "string",title: "Страна", enum: ["Россия", "Казахстан", "Беларусь"],enumNames: ["Россия", "Казахстан", "Беларусь"],default: "Россия"},
+    city: {type: "string", title: "Город"},
+    address: {type: "string", title: "Адрес"},
+    postcode: {type: "string", title: "Индекс"},
+    additionalInfo: {type: "string", title: "Дополнительная информация"}
   }
 };
 
@@ -51,7 +55,8 @@ class Step2 extends React.Component {
           <p>У вас нет адресов! Добавить?</p>
         </div>
         <div className="row">
-          <Form schema={schema}
+          <Form className="col-md-6"
+          schema={newAdress}
           onChange={log("changed")}
           onSubmit={log("submitted")}
           onError={log("errors")} />
