@@ -23,14 +23,24 @@ class Cart extends React.Component{
         name:"Иван Кулек",
         addresses:[
           {
-            id:1,
-            isActive: true,
-            title: "Дом",
-            country: "Россия",
-            city:"Москва",
-            address:"ул. Пушкина, д. 777, кв. 111",
-            postcode: 123322,
-            additionalInfo:"домофон сломан, кричите, что есть сил"
+            "id": 1,
+            "isActive": true,
+            "title": "Дом",
+            "country": "Россия",
+            "city": "Москва",
+            "address": "ул. Пушкина, д. 777, кв. 111",
+            "postcode": 123322,
+            "additionalInfo": "домофон сломан, кричите, что есть сил"
+          },
+          {
+            "id": 2,
+            "isActive": false,
+            "title": "Работа",
+            "country": "Россия",
+            "city": "Москва",
+            "address": "ул. Пушкина, д. 777, кв. 111",
+            "postcode": 123322,
+            "additionalInfo": "домофон сломан, кричите, что есть сил"
           }
         ]
       },

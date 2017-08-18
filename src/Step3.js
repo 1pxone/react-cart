@@ -23,7 +23,7 @@ const uiSchema = {
 }
 
 const log = (type) => console.log.bind(console, type);
-
+const onSubmit = ({formData}) => console.log("yay I'm valid!");
 class Step3 extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +32,7 @@ class Step3 extends React.Component {
       addresses : []
     };
     this.addNewAddress = this.addNewAddress.bind(this);
+    this.deleteAddress = this.deleteAddress.bind(this);
   }
 
   componentDidMount() {
@@ -73,16 +74,39 @@ class Step3 extends React.Component {
         "additionalInfo": "домофон сломан, кричите, что есть сил"
       }
     ]
-
     })
     .then(function (response) {
-      console.log(response);
+
     })
     .catch(function (error) {
-      console.log(error);
+
     });
-    this.forceUpdate();
   }
+
+
+  deleteAddress(id){
+    console.log(this.state.addresses);
+    let updatedAddresses = this.state.addresses.filter(function(address) {
+        return address.id !== id;
+    });
+    var url = 'http://localhost:3001/user';
+    axios.post(url, {
+      "id":123,
+      "isAuth": false,
+      "uid": 123,
+      "firstname": "Иван",
+      "surname": "Кулек",
+      "addresses": updatedAddresses
+    })
+    .then(function (response) {
+
+    })
+    .catch(function (error) {
+
+    });
+  }
+
+
 
   render() {
     if(this.state.addresses.length < 1){
@@ -99,12 +123,15 @@ class Step3 extends React.Component {
             schema={newAdress}
             uiSchema={uiSchema}
             onChange={log("changed")}
-            onSubmit={log("submitted")}
+            onSubmit={onSubmit}
             onError={log("errors")}  >
             <div>
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
           </Form>
+          <button onClick={this.addNewAddress} className="btn btn-warning my-5">
+            Добавить два адреса
+          </button>
           </div>
         </div>
       )
@@ -124,7 +151,7 @@ class Step3 extends React.Component {
                 <p className="card-text">{address.address}, {address.postcode}</p>
                 <p className="card-text">{address.additionalInfo}</p>
                 <a href="#" className="btn btn-primary">Редактировать</a>
-                <a href="#" className="btn btn-danger">Удалить</a>
+                <button onClick={this.deleteAddress(address.id)} className="btn btn-danger">Удалить</button>
               </div>
             </div>
           )}
@@ -134,14 +161,14 @@ class Step3 extends React.Component {
           schema={newAdress}
           uiSchema={uiSchema}
           onChange={log("changed")}
-          onSubmit={log("submitted")}
+          onSubmit={onSubmit}
           onError={log("errors")}  >
           <div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </Form>
         <button onClick={this.addNewAddress} className="btn btn-warning my-5">
-          Выйти
+          Добавить два адреса
         </button>
         </div>
 
