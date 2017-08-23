@@ -5,10 +5,10 @@ import './App.css';
 // import Form from "react-jsonschema-form";
 
 // step components
-import Step1 from './Step1';
-import Step2 from './Step2';
-import Step3 from './Step3';
-import Step4 from './Step4';
+import Step1 from '../components/Step1';
+import Step2 from '../components/Step2';
+import Step3 from '../components/Step3';
+import Step4 from '../components/Step4';
 
 
 class Cart extends React.Component{

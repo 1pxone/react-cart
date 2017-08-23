@@ -65,6 +65,7 @@
   "user": {
     "id": 123,
     "isAuth": false,
+    "isCompany":false,
     "uid": 123,
     "firstname": "Иван",
     "surname": "Кулек",
@@ -89,6 +90,12 @@
         "postcode": 123322,
         "additionalInfo": "домофон сломан, кричите, что есть сил"
       }
-    ]
-  }
+    ],
+    "carts":{}
+  },
+  "stepper":{
+    "currentStep":1,
+    "unlockedSteps":[1,2]
+  },
+  "summary":{}
 }
