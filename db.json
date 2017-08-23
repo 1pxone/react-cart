@@ -65,7 +65,6 @@
   "user": {
     "id": 123,
     "isAuth": false,
-    "isCompany":false,
     "uid": 123,
     "firstname": "Иван",
     "surname": "Кулек",
@@ -79,23 +78,15 @@
         "address": "ул. Пушкина, д. 777, кв. 111",
         "postcode": 123322,
         "additionalInfo": "домофон сломан, кричите, что есть сил"
-      },
-      {
-        "id": 2,
-        "isActive": false,
-        "title": "Работа",
-        "country": "Россия",
-        "city": "Москва",
-        "address": "ул. Пушкина, д. 777, кв. 111",
-        "postcode": 123322,
-        "additionalInfo": "домофон сломан, кричите, что есть сил"
       }
-    ],
-    "carts":{}
+    ]
   },
-  "stepper":{
-    "currentStep":1,
-    "unlockedSteps":[1,2]
+  "stepper": {
+    "currentStep": 1,
+    "unlockedSteps": [
+      1,
+      2
+    ]
   },
-  "summary":{}
+  "summary": {}
 }
