@@ -1,6 +1,51 @@
 {
-  "cart": [
-    {
+  "users": [{
+    "id": 333,
+    "isOrganization": false,
+    "dateRegistred": "23.08.2017 17:34",
+    "lastVisit":,
+    "registredFrom": "email",
+    "firstname": "Николай",
+    "surname": "Покупаев",
+    "inn": "",
+    "kpp": "",
+    "orgn": "",
+    "email": "nipokupaev@mail.com",
+    "phone": ,
+    "fax": ,
+    "password": "nocrypto",
+    "organizationAddress": {},
+    "addresses": [{
+      "id": 1,
+      "isActive": true,
+      "title": "Дом",
+      "country": "Россия",
+      "city": "Москва",
+      "address": "ул. Пушкина, д. 777, кв. 111",
+      "postcode": 123322,
+      "additionalInfo": "домофон сломан, кричите, что есть сил"
+    }],
+    "carts": [{
+      "id": 1,
+      "created": ,
+      "items": [{
+        "id": 123,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 123",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
+        "count": 1
+      }]
+    }],
+    "orders": [{
+      "id": 123212,
+      "summary": {},
+      "created": "",
+      "status": 2
+    }]
+  }],
+  "cart": [{
       "data": {
         "id": 123,
         "sku": "231023-122",
@@ -68,18 +113,16 @@
     "uid": 123,
     "firstname": "Иван",
     "surname": "Кулек",
-    "addresses": [
-      {
-        "id": 1,
-        "isActive": true,
-        "title": "Дом",
-        "country": "Россия",
-        "city": "Москва",
-        "address": "ул. Пушкина, д. 777, кв. 111",
-        "postcode": 123322,
-        "additionalInfo": "домофон сломан, кричите, что есть сил"
-      }
-    ]
+    "addresses": [{
+      "id": 1,
+      "isActive": true,
+      "title": "Дом",
+      "country": "Россия",
+      "city": "Москва",
+      "address": "ул. Пушкина, д. 777, кв. 111",
+      "postcode": 123322,
+      "additionalInfo": "домофон сломан, кричите, что есть сил"
+    }]
   },
   "stepper": {
     "currentStep": 1,
