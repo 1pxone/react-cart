@@ -47,10 +47,7 @@ class Step1 extends React.Component {
             )}
             </tbody>
           </table>
-
         </div>
-
-
       </div>
     );
   }
