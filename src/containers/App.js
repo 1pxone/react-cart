@@ -2,6 +2,8 @@ import React from 'react';
 // import axios from 'axios';
 // import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import update from 'immutability-helper';
 // import Form from "react-jsonschema-form";
 
 // step components
@@ -9,6 +11,7 @@ import Step1 from '../components/Step1';
 import Step2 from '../components/Step2';
 import Step3 from '../components/Step3';
 import Step4 from '../components/Step4';
+import Stepper from '../components/Stepper';
 
 
 class Cart extends React.Component{
@@ -48,7 +51,8 @@ class Cart extends React.Component{
         component: "Step1",
         title: "Ваш заказ",
         stepnum:1
-      }
+      },
+      summary:{}
     };
     this.previous = this.previous.bind(this);
     this.next = this.next.bind(this);
@@ -119,38 +123,66 @@ class Cart extends React.Component{
     });
   }
 
+  componentDidMount() {
+    var url = 'http://localhost:3001/summary';
+    axios.get(url)
+      .then(res => {
+        console.log(res.data)
+        // const summary = res.data.map(obj => obj);
+        // console.log(summary)
+        let newState = update(this.state, {"summary": { $set: res.data}})
+        this.setState(newState);
+      })
+  }
+
+
+
 
   render() {
+    //for debug
+    var debugstyle = {
+      color: 'lime',
+      background: 'black'
+    };
+    const currentsummary = (<div className="my-5 p-2 text-white" style={debugstyle}><pre style={debugstyle}>{JSON.stringify(this.state.summary, null, 2) }</pre></div>)
+    //end debug block
+
+    const navbar = (<nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+  <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a className="navbar-brand" href="#">Hidden brand</a>
+    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li className="nav-item active">
+        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="#">Link</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form className="form-inline my-2 my-lg-0">
+      <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>);
+
+
     switch(this.state.step.stepnum) {
       case 1:
         return (
           <div className="container">
-            <div className="row text-center">
-              <div className="col">
-                <button className="btn btn-primary">
-                  Корзина
-                </button>
-              </div>
-              <div className="col">
-                <button className="btn btn-info" disabled="disabled">
-                  Выбор доставки
-                </button>
-              </div>
-              <div className="col">
-                <button className="btn btn-info" disabled="disabled">
-                  Выбор оплаты
-                </button>
-              </div>
-              <div className="col">
-                <button  className="btn btn-info" disabled="disabled">
-                  Подтверждение
-                </button>
-              </div>
-            </div>
+          {navbar}
+            <Stepper step="1"/>
             <Step1 heading="Ваш заказ"/>
             <button onClick={this.next} className="btn btn-primary">
               Выбор доставки
             </button>
+            {currentsummary}
           </div>
         )
         // break;
@@ -159,28 +191,8 @@ class Cart extends React.Component{
           case true:
             return (
               <div className="container">
-                <div className="row text-center">
-                  <div className="col">
-                    <button onClick={this.previous} className="btn btn-success">
-                      Корзина
-                    </button>
-                  </div>
-                  <div className="col">
-                    <button className="btn btn-primary">
-                      Выбор доставки
-                    </button>
-                  </div>
-                  <div className="col">
-                    <button className="btn btn-info" disabled="disabled">
-                      Выбор оплаты
-                    </button>
-                  </div>
-                  <div className="col">
-                    <button  className="btn btn-info" disabled="disabled">
-                      Подтверждение
-                    </button>
-                  </div>
-                </div>
+              {navbar}
+                <Stepper step="2"/>
                 <Step3 heading="Выбор доставки"/>
                 <button onClick={this.logout} className="btn btn-primary">
                   Выйти
@@ -191,34 +203,15 @@ class Cart extends React.Component{
                 <button onClick={this.next} className="btn btn-primary">
                   Выбор оплаты
                 </button>
+                {currentsummary}
               </div>
             )
             // break;
           case false:
             return (
               <div className="container">
-                <div className="row text-center">
-                  <div className="col">
-                    <button onClick={this.previous} className="btn btn-success">
-                      Корзина
-                    </button>
-                  </div>
-                  <div className="col">
-                    <button className="btn btn-primary">
-                      Выбор доставки
-                    </button>
-                  </div>
-                  <div className="col">
-                    <button className="btn btn-info" disabled="disabled">
-                      Выбор оплаты
-                    </button>
-                  </div>
-                  <div className="col">
-                    <button  className="btn btn-info" disabled="disabled">
-                      Подтверждение
-                    </button>
-                  </div>
-                </div>
+              {navbar}
+                <Stepper step="2"/>
                 <Step2 heading="Войти / Зарегистрироваться"/>
                 <div className="row">
                 <button onClick={this.login} className="btn btn-primary">
@@ -228,6 +221,7 @@ class Cart extends React.Component{
                   Назад
                 </button>
                 </div>
+                {currentsummary}
               </div>
             )
 
@@ -240,32 +234,13 @@ class Cart extends React.Component{
       case 3:
         return (
           <div className="container">
-            <div className="row text-center">
-              <div className="col">
-                <button onClick={this.previous} className="btn btn-success">
-                  Корзина
-                </button>
-              </div>
-              <div className="col">
-                <button onClick={this.previous} className="btn btn-success">
-                  Выбор доставки
-                </button>
-              </div>
-              <div className="col">
-                <button className="btn btn-primary">
-                  Выбор оплаты
-                </button>
-              </div>
-              <div className="col">
-                <button  className="btn btn-info" disabled="disabled">
-                  Подтверждение
-                </button>
-              </div>
-            </div>
+          {navbar}
+            <Stepper step="3"/>
             <Step4 heading="Выбор оплаты"/>
             <button onClick={this.previous} className="btn btn-primary">
               Назад
             </button>
+            {currentsummary}
           </div>
         )
         // break;

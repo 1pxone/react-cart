@@ -75,18 +75,7 @@
     "uid": 123,
     "firstname": "Иван",
     "surname": "Кулек",
-    "addresses": [
-      {
-        "id": 1,
-        "isActive": true,
-        "title": "Дом",
-        "country": "Россия",
-        "city": "Москва",
-        "address": "ул. Пушкина, д. 777, кв. 111",
-        "postcode": 123322,
-        "additionalInfo": "домофон сломан, кричите, что есть сил"
-      }
-    ]
+    "addresses": []
   },
   "stepper": {
     "currentStep": 1,
@@ -128,7 +117,7 @@
         "title": "Gaming chair 125",
         "image": "https://facebook.github.io/react/img/logo.svg",
         "price": 12990,
-        "count": 51
+        "count": 1
       },
       {
         "id": 126,

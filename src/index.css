@@ -3,3 +3,14 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.circle {
+    display: inline-block;
+    color: #fff;
+    border-radius: 50%;
+    background: rgba(0,0,0,.38);
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    margin-right: 8px;
+}

@@ -129,7 +129,7 @@ class Step3 extends React.Component {
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
           </Form>
-          <button onClick={this.addNewAddress} className="btn btn-warning my-5">
+          <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
             Добавить два адреса
           </button>
           </div>
@@ -151,7 +151,7 @@ class Step3 extends React.Component {
                 <p className="card-text">{address.address}, {address.postcode}</p>
                 <p className="card-text">{address.additionalInfo}</p>
                 <a href="#" className="btn btn-primary">Редактировать</a>
-                <button onClick={this.deleteAddress(address.id)} className="btn btn-danger">Удалить</button>
+                <button onClick={() => this.deleteAddress(address.id)} className="btn btn-danger">Удалить</button>
               </div>
             </div>
           )}
@@ -167,7 +167,7 @@ class Step3 extends React.Component {
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </Form>
-        <button onClick={this.addNewAddress} className="btn btn-warning my-5">
+        <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
           Добавить два адреса
         </button>
         </div>

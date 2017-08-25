@@ -2,8 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import Form from "react-jsonschema-form";
-import Register from '../components/Register';
-
+const log = (type) => console.log.bind(console, type);
 const registerForm = {
   "title": "Зарегистрироваться",
   "description": "Заполните форму для регистрации",
@@ -50,40 +49,6 @@ const registerForm = {
     }
   }
 };
-
-const loginForm = {
-  "title": "Войти",
-  "description": "Уже зарегистрированы? Войдите:",
-  "type": "object",
-  "required": [
-    "email",
-    "password"
-  ],
-  "properties": {
-    "email": {
-      "type": "string",
-      "title": "Ваш E-mail"
-    },
-    "password": {
-      "type": "string",
-      "title": "Пароль",
-      "minLength": 6
-    }
-  }
-};
-
-const uiSchema = {
-  "email": {
-    "ui:autofocus": true,
-    "ui:emptyValue": ""
-  },
-  "password": {
-    "ui:widget": "password",
-    "ui:help": "Минимум 6 символов"
-  }
-}
-
-const log = (type) => console.log.bind(console, type);
 function ErrorListTemplate(props) {
   const {errors} = props;
   return (
@@ -106,52 +71,37 @@ function validate(formData, errors) {
   return errors;
 }
 
-class Step2 extends React.Component {
+
+class Register extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      step : 1
+    };
 
-    // this.state = {
-    //   cart : [],
-    //   step: {
-    //     component: "step2",
-    //     title: "Выбор доставки",
-    //     stepnum:2
-    //   }
-    // };
   }
 
   componentDidMount() {
-    // var that = this;
-    // var url = 'http://localhost:3001/cart';
-    //
-    // axios.get(url)
-    //   .then(res => {
-    //     const cart = res.data.map(obj => obj.data);
-    //     this.setState({ cart });
-    //     console.log({cart})
-    //   });
+
   }
+
 
   render() {
     return (
-      <div  className="row py-5">
-        <div className="col-12 py-0">
-          <h1>{this.props.heading}</h1>
-        </div>
+      <div className="row text-center">
         <div className="col">
           <Form
-          schema={loginForm}
-          uiSchema={uiSchema}
+          schema={registerForm}
           onChange={log("changed")}
           onSubmit={log("submitted")}
           onError={log("errors")}
-          ErrorList={ErrorListTemplate} >
+          validate={validate}
+          ErrorList={ErrorListTemplate}  >
           <div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </Form>
-        </div>
-        <Register />
+      </div>
       </div>
     );
   }
@@ -159,4 +109,4 @@ class Step2 extends React.Component {
 
 
 
-export default Step2;
+export default Register;
