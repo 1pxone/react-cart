@@ -46,6 +46,8 @@ class Step1 extends React.Component {
 
     // console.log(itemindex);
     // console.log(this.state.cart[itemindex].count + 1);
+
+
     this.state.cart[itemindex].count = this.state.cart[itemindex].count + 1;
     this.forceUpdate();
 
@@ -57,9 +59,12 @@ class Step1 extends React.Component {
     }
     var itemindex = this.state.cart.findIndex(findItem);
 
-    // console.log(itemindex);
+    console.log(itemindex);
     // console.log(this.state.cart[itemindex].count + 1);
-    this.state.cart = this.state.cart.splice([itemindex], 1); ;
+    this.setState((prevState, props) => ({
+      cart: prevState.cart.splice(itemindex,1)
+    }));
+    // this.state.cart = this.state.cart.splice([itemindex], 1); ;
 
     this.forceUpdate();
 
