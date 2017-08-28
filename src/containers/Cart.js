@@ -1,10 +1,7 @@
 import React from 'react';
-// import axios from 'axios';
-// import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import update from 'immutability-helper';
-// import Form from "react-jsonschema-form";
 
 // step components
 import Step1 from '../components/Step1';
@@ -12,6 +9,15 @@ import Step2 from '../components/Step2';
 import Step3 from '../components/Step3';
 import Step4 from '../components/Step4';
 import Stepper from '../components/Stepper';
+import Navbar from '../components/Navbar';
+
+//redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as StepperActions from '../actions/StepperActions'
+
+import  NextButton  from '../components/NextButton'
+import  PreviousButton  from '../components/PreviousButton'
 
 
 class Cart extends React.Component{
@@ -54,49 +60,11 @@ class Cart extends React.Component{
       },
       summary:{}
     };
-    this.previous = this.previous.bind(this);
-    this.next = this.next.bind(this);
+
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.toPayment = this.toPayment.bind(this);
+
   };
-
-
-  previous(count){
-    this.setState({
-      cart: this.state.cart,
-      user: this.state.user,
-      step: {
-        component: "Step1",
-        title: "Ваш заказ",
-        stepnum:this.state.step.stepnum - 1
-      }
-    });
-  }
-
-  next(count){
-    this.setState({
-      cart: this.state.cart,
-      user: this.state.user,
-      step: {
-        component: "Step1",
-        title: "Выбор доставки",
-        stepnum: this.state.step.stepnum + 1
-      }
-    });
-  }
-  toPayment(){
-    this.setState({
-      cart: this.state.cart,
-      user: this.state.user,
-      step: {
-        component: "Step4",
-        title: "Выбор оплаты",
-        stepnum:3
-      }
-    });
-  }
-
 
   login(){
     this.setState({
@@ -110,6 +78,7 @@ class Cart extends React.Component{
       step: this.state.step,
     });
   }
+
   logout(){
     this.setState({
       cart: this.state.cart,
@@ -127,16 +96,10 @@ class Cart extends React.Component{
     var url = 'http://localhost:3001/summary';
     axios.get(url)
       .then(res => {
-        console.log(res.data)
-        // const summary = res.data.map(obj => obj);
-        // console.log(summary)
         let newState = update(this.state, {"summary": { $set: res.data}})
         this.setState(newState);
       })
   }
-
-
-
 
   render() {
     //for debug
@@ -144,88 +107,60 @@ class Cart extends React.Component{
       color: 'lime',
       background: 'black'
     };
-    const currentsummary = (<div className="my-5 p-2 text-white" style={debugstyle}><pre style={debugstyle}>{JSON.stringify(this.state.summary, null, 2) }</pre></div>)
+    const currentsummary = (<div className="my-5 p-2 text-white" style={debugstyle}><pre style={debugstyle}> {JSON.stringify(this.state.summary, null, 2) }</pre></div>)
     //end debug block
 
-    const navbar = (<nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
-  <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a className="navbar-brand" href="#">Hidden brand</a>
-    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li className="nav-item active">
-        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="#">Link</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form className="form-inline my-2 my-lg-0">
-      <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>);
+    //redux
+    const { NextStep } = this.props.StepperActions;
+    const { PreviousStep } = this.props.StepperActions;
 
-
-    switch(this.state.step.stepnum) {
+    switch(this.props.stepper.step) {
       case 1:
         return (
           <div className="container">
-          {navbar}
-            <Stepper step="1"/>
+            <Navbar isAuth={this.state.user.isAuth} />
+            <Stepper step={this.props.stepper.step}  />
             <Step1 heading="Ваш заказ"/>
-            <button onClick={this.next} className="btn btn-primary">
-              Выбор доставки
-            </button>
+            <NextButton NextStep={NextStep}/>
+            <button className="btn btn-primary">Быстрый заказ</button>
             {currentsummary}
           </div>
         )
-        // break;
+
       case 2:
         switch(this.state.user.isAuth) {
           case true:
             return (
               <div className="container">
-              {navbar}
+                <Navbar isAuth={this.state.user.isAuth} />
                 <Stepper step="2"/>
                 <Step3 heading="Выбор доставки"/>
                 <button onClick={this.logout} className="btn btn-primary">
                   Выйти
                 </button>
-                <button onClick={this.previous} className="btn btn-primary">
-                  Назад
-                </button>
-                <button onClick={this.next} className="btn btn-primary">
-                  Выбор оплаты
-                </button>
+                <NextButton NextStep={NextStep} className="py-5"/>
+                <PreviousButton PreviousStep={PreviousStep}/>
                 {currentsummary}
               </div>
             )
-            // break;
+
           case false:
             return (
               <div className="container">
-              {navbar}
+                <Navbar isAuth={this.state.user.isAuth} />
                 <Stepper step="2"/>
                 <Step2 heading="Войти / Зарегистрироваться"/>
                 <div className="row">
                 <button onClick={this.login} className="btn btn-primary">
                   Войти
                 </button>
-                <button onClick={this.previous} className="btn btn-primary">
-                  Назад
-                </button>
                 </div>
+                <NextButton NextStep={NextStep}/>
+                <PreviousButton PreviousStep={PreviousStep}/>
                 {currentsummary}
               </div>
             )
 
-            // break;
           default:
             break;
         }
@@ -234,22 +169,43 @@ class Cart extends React.Component{
       case 3:
         return (
           <div className="container">
-          {navbar}
+            <Navbar isAuth={this.state.user.isAuth} />
             <Stepper step="3"/>
             <Step4 heading="Выбор оплаты"/>
-            <button onClick={this.previous} className="btn btn-primary">
-              Назад
-            </button>
+            <NextButton NextStep={NextStep}/>
+            <PreviousButton PreviousStep={PreviousStep}/>
             {currentsummary}
           </div>
         )
-        // break;
+      case 4:
+        return (
+          <div className="container">
+            <Navbar isAuth={this.state.user.isAuth} />
+            <Stepper step="4"/>
+            <Step4 heading="Подтверждение заказа"/>
+            <PreviousButton PreviousStep={PreviousStep}/>
+            {currentsummary}
+          </div>
+        )
+
       default:
         break;
     }
   }
 }
 
+function mapStateToProps (state) {
+  return {
+    stepper: state.stepper,
+    user: state.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    StepperActions: bindActionCreators(StepperActions, dispatch)
+  }
+}
 
 
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

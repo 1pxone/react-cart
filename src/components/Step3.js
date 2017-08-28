@@ -85,7 +85,6 @@ class Step3 extends React.Component {
 
 
   deleteAddress(id){
-    console.log(this.state.addresses);
     let updatedAddresses = this.state.addresses.filter(function(address) {
         return address.id !== id;
     });
@@ -111,7 +110,7 @@ class Step3 extends React.Component {
   render() {
     if(this.state.addresses.length < 1){
       return (
-        <div  className="row">
+        <div  className="row py-5">
           <div className="col-12">
             <h1>{this.props.heading}</h1>
           </div>
@@ -124,20 +123,20 @@ class Step3 extends React.Component {
             uiSchema={uiSchema}
             onChange={log("changed")}
             onSubmit={onSubmit}
-            onError={log("errors")}  >
-            <div>
-              <button type="submit" className="btn btn-primary">Submit</button>
-            </div>
-          </Form>
-          <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
-            Добавить два адреса
-          </button>
+            onError={log("errors")}>
+              <div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+              </div>
+            </Form>
+            <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
+              Добавить два адреса
+            </button>
           </div>
         </div>
       )
     }
     return (
-      <div  className="row">
+      <div  className="row py-5">
         <div className="col-12">
           <h1>{this.props.heading}</h1>
         </div>
@@ -162,16 +161,15 @@ class Step3 extends React.Component {
           uiSchema={uiSchema}
           onChange={log("changed")}
           onSubmit={onSubmit}
-          onError={log("errors")}  >
-          <div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </div>
-        </Form>
-        <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
-          Добавить два адреса
-        </button>
+          onError={log("errors")}>
+            <div>
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
+          </Form>
+          <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
+            Добавить два адреса
+          </button>
         </div>
-
       </div>
     );
   }

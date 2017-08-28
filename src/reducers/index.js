@@ -1,7 +1,10 @@
-const initialState = {
-  user: 'Unknown User'
-};
+import { combineReducers } from 'redux'
+import user from './user'
+import stepper from './stepper'
+import cart from './cart'
 
-export default function userstate(state = initialState) {
-  return state;
-}
+export default combineReducers({
+  user,
+  stepper,
+  cart
+})

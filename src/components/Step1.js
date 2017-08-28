@@ -3,6 +3,12 @@ import axios from 'axios';
 import CountUp from 'react-countup';
 import update from 'immutability-helper';
 
+
+//redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as CartActions from '../actions/CartActions'
+
 class Step1 extends React.Component {
   constructor(props) {
     super(props);
@@ -127,16 +133,31 @@ class Step1 extends React.Component {
               </div>
             </div>
             <div className="input-group pt-3">
-              <input type="text" className="form-control" placeholder="Промокод" aria-label="Search for..." />
+              <input type="text" className="form-control" placeholder="Промокод" />
               <span className="input-group-btn">
                 <button className="btn btn-success" type="button"><i className="fa fa-check" aria-hidden="true"></i></button>
               </span>
             </div>
           </div>
         </div>
-
       </div>
     );
   }
 }
-export default Step1;
+
+
+function mapStateToProps (state) {
+  return {
+    stepper: state.stepper,
+    user: state.user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    CartActions: bindActionCreators(CartActions, dispatch)
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Step1);

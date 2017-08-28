@@ -49,6 +49,19 @@ const registerForm = {
     }
   }
 };
+
+
+const uiSchema = {
+  "email": {
+    "ui:autofocus": true,
+    "ui:emptyValue": ""
+  },
+  "password": {
+    "ui:widget": "password",
+    "ui:help": "Минимум 6 символов"
+  }
+};
+
 function ErrorListTemplate(props) {
   const {errors} = props;
   return (
@@ -88,8 +101,8 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div className="row text-center">
-        <div className="col">
+
+        <div className="col-4">
           <Form
           schema={registerForm}
           onChange={log("changed")}
@@ -102,7 +115,7 @@ class Register extends React.Component {
           </div>
         </Form>
       </div>
-      </div>
+
     );
   }
 }

@@ -18,12 +18,12 @@ class Step4 extends React.Component {
 
   render() {
     return (
-      <div  className="container">
+      <div  className="container py-5">
         <div className="row">
           <h1>{this.props.heading}</h1>
         </div>
         <div className="row">
-          <p>Выберите удобный для Вас способ оплаты</p>
+          <p>Проверте правильность введеных вами данных</p>
         </div>
         <div className="row">
 

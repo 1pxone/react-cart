@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 import ReactDOM from 'react-dom';
 import './index.css';
-import Cart from './containers/App';
+import Cart from './containers/Cart';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore'
 

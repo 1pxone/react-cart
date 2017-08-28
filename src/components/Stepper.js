@@ -8,9 +8,7 @@ import axios from 'axios';
 class Stepper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      step : 1
-    };
+    
 
   }
 
