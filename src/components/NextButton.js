@@ -14,9 +14,7 @@ class NextButton extends React.Component {
   }
   render() {
     return (
-      <div>
         <button className="btn btn-primary" onClick={this.onNextBtnClick}>Вперед</button>
-      </div>
     )
   }
 }

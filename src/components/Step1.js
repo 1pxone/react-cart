@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import CountUp from 'react-countup';
 import update from 'immutability-helper';
+import FastOrder from './FastOrder';
 
 
 //redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import * as CartActions from '../actions/CartActions'
+
 
 class Step1 extends React.Component {
   constructor(props) {
@@ -139,6 +141,9 @@ class Step1 extends React.Component {
               </span>
             </div>
           </div>
+        </div>
+        <div className="row">
+          <FastOrder />
         </div>
       </div>
     );

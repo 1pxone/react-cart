@@ -33,12 +33,8 @@ class Step2 extends React.Component {
     super(props);
 
     this.state = {
-      cart : [],
-      step: {
-        component: "step2",
-        title: "Выбор доставки",
-        stepnum:2
-      }
+      registration: true,
+      isOrganization: true
     };
   }
 
@@ -55,15 +51,34 @@ class Step2 extends React.Component {
   }
 
   render() {
-    return (
-      <div  className="row py-5 justify-content-center">
-        <div className="col-12 py-0">
-          <h1>{this.props.heading}</h1>
-        </div>
-        <Login />
-        <Register />
-      </div>
-    );
+    switch (this.state.registration) {
+      case true:
+        return (
+          <div  className="row py-5 ">
+            <div className="col-12 py-0">
+              <h1>{this.props.heading}</h1>
+            </div>
+            <Register isOrganization={this.state.isOrganization}/>
+          </div>
+        );
+
+        break;
+      case false:
+        return (
+          <div  className="row py-5 justify-content-center">
+            <div className="col-12 py-0">
+              <h1>{this.props.heading}</h1>
+            </div>
+            <Login />
+          </div>
+        );
+
+        break;
+      default:
+        break;
+
+    }
+
   }
 }
 

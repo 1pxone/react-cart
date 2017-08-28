@@ -100,23 +100,65 @@ class Register extends React.Component {
 
 
   render() {
-    return (
+    switch (this.props.isOrganization) {
+      case true:
+        return (
+            <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <Form
+                schema={registerForm}
+                onChange={log("changed")}
+                onSubmit={log("submitted")}
+                onError={log("errors")}
+                validate={validate}
+                ErrorList={ErrorListTemplate}  >
+                  <div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                  </div>
+                </Form>
+              </div>
+              <div className="col-md-6">
+                <Form
+                schema={registerForm}
+                onChange={log("changed")}
+                onSubmit={log("submitted")}
+                onError={log("errors")}
+                validate={validate}
+                ErrorList={ErrorListTemplate}  >
+                  <div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                  </div>
+                </Form>
+                </div>
+              </div>
+            </div>
+          );
 
-        <div className="col-4">
-          <Form
-          schema={registerForm}
-          onChange={log("changed")}
-          onSubmit={log("submitted")}
-          onError={log("errors")}
-          validate={validate}
-          ErrorList={ErrorListTemplate}  >
-          <div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </div>
-        </Form>
-      </div>
+        break;
+      case false:
+        return (
+            <div className="col-4">
+              <Form
+              schema={registerForm}
+              onChange={log("changed")}
+              onSubmit={log("submitted")}
+              onError={log("errors")}
+              validate={validate}
+              ErrorList={ErrorListTemplate}  >
+                <div>
+                  <button type="submit" className="btn btn-primary">Submit</button>
+                </div>
+              </Form>
+            </div>
+          );
 
-    );
+        break;
+      default:
+        break;
+
+    }
+
   }
 }
 

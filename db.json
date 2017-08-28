@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 333,
+      "id": 1,
       "isOrganization": false,
       "dateRegistred": "23.08.2017 17:34",
       "lastVisit": "",
@@ -48,9 +48,22 @@
       "orders": [
         {
           "id": 123212,
-          "summary": {},
-          "created": "",
-          "status": 2
+          "summary": {
+            "delivery":{
+              "id":3,
+              "description":"Доставка в ПВЗ",
+              "address":"ПВЗ #420"
+            },
+            "payment":{
+              "id":1,
+              "description":"Оплата наличными при плолучении"
+            }
+          },
+          "created": "28.03.2017 16:20",
+          "status": {
+            "code":4,
+            "description":"Доставлен"
+          }
         }
       ]
     }

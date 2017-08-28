@@ -1,5 +1,5 @@
 const initialState = {
-  step: 2
+  step: 1
 }
 
 export default function stepperstate(state = initialState, action) {
