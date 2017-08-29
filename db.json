@@ -49,20 +49,39 @@
         {
           "id": 123212,
           "summary": {
-            "delivery":{
-              "id":3,
-              "description":"Доставка в ПВЗ",
-              "address":"ПВЗ #420"
+            "delivery": {
+              "id": 3,
+              "description": "Доставка в ПВЗ",
+              "address": "ПВЗ #420"
             },
-            "payment":{
-              "id":1,
-              "description":"Оплата наличными при плолучении"
+            "payment": {
+              "id": 1,
+              "description": "Оплата наличными при плолучении"
             }
           },
           "created": "28.03.2017 16:20",
           "status": {
-            "code":4,
-            "description":"Доставлен"
+            "code": 4,
+            "description": "Доставлен"
+          }
+        },
+        {
+          "id": 123213,
+          "summary": {
+            "delivery": {
+              "id": 3,
+              "description": "Доставка в ПВЗ",
+              "address": "ПВЗ #421"
+            },
+            "payment": {
+              "id": 1,
+              "description": "Оплата наличными при получении"
+            }
+          },
+          "created": "28.03.2017 16:21",
+          "status": {
+            "code": 4,
+            "description": "Доставлен"
           }
         }
       ]
@@ -90,9 +109,19 @@
     "surname": "Кулек",
     "addresses": [
       {
-        "id": 1,
+        "id": 2,
         "isActive": true,
-        "title": "Дом",
+        "title": "Дом 2",
+        "country": "Россия",
+        "city": "Москва",
+        "address": "ул. Пушкина, д. 777, кв. 111",
+        "postcode": 123322,
+        "additionalInfo": "домофон сломан, кричите, что есть сил"
+      },
+      {
+        "id": 3,
+        "isActive": false,
+        "title": "Работа",
         "country": "Россия",
         "city": "Москва",
         "address": "ул. Пушкина, д. 777, кв. 111",
@@ -123,7 +152,7 @@
         "title": "Gaming chair 123",
         "image": "https://facebook.github.io/react/img/logo.svg",
         "price": 12990,
-        "count": 19
+        "count": 1
       },
       {
         "id": 124,
@@ -132,7 +161,7 @@
         "title": "Gaming chair 124",
         "image": "https://facebook.github.io/react/img/logo.svg",
         "price": 12990,
-        "count": 12
+        "count": 2
       },
       {
         "id": 125,
@@ -141,7 +170,7 @@
         "title": "Gaming chair 125",
         "image": "https://facebook.github.io/react/img/logo.svg",
         "price": 12990,
-        "count": 2
+        "count": 3
       },
       {
         "id": 126,
@@ -150,7 +179,61 @@
         "title": "Gaming chair 126",
         "image": "https://facebook.github.io/react/img/logo.svg",
         "price": 12990,
+        "count": 4
+      },
+      {
+        "id": 127,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 126",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
+        "count": 5
+      },
+      {
+        "id": 128,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 126",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
         "count": 6
+      },
+      {
+        "id": 129,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 126",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
+        "count": 7
+      },
+      {
+        "id": 130,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 126",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
+        "count": 8
+      },
+      {
+        "id": 131,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 126",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
+        "count": 9
+      },
+      {
+        "id": 132,
+        "sku": "231023-122",
+        "category": "Chairs",
+        "title": "Gaming chair 126",
+        "image": "https://facebook.github.io/react/img/logo.svg",
+        "price": 12990,
+        "count": 10
       }
     ]
   }

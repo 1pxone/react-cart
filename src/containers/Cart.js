@@ -120,7 +120,7 @@ class Cart extends React.Component{
           <div className="container">
             <Navbar isAuth={this.state.user.isAuth} />
             <Stepper step={this.props.stepper.step}  />
-            <Step1 heading="Ваш заказ"/>
+            <Step1 heading="Ваш заказ" isAuth={this.state.user.isAuth}/>
             <NextButton NextStep={NextStep}/>
             <button className="btn btn-primary">Быстрый заказ</button>
             {currentsummary}

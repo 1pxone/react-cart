@@ -23,7 +23,7 @@ const uiSchema = {
 }
 
 const log = (type) => console.log.bind(console, type);
-const onSubmit = ({formData}) => console.log("yay I'm valid!");
+const onSubmit = ({formData}) => console.log(formData);
 class Step3 extends React.Component {
   constructor(props) {
     super(props);
@@ -40,47 +40,28 @@ class Step3 extends React.Component {
 
     axios.get(url)
       .then(res => {
-        const addresses = res.data.addresses.map(obj => obj);
-        this.setState({ addresses});
+        if( res.data.addresses.length > 0){
+          const addresses = res.data.addresses.map(obj => obj);
+          this.setState({ addresses});
+        }
       });
   }
 
   addNewAddress(){
+    let arr = [...this.state.addresses];
+    let newAdresses = arr.push();
+    console.log(arr);
     var url = 'http://localhost:3001/user';
-    axios.post(url, {
-      "id":123,
-      "isAuth": false,
-      "uid": 123,
-      "firstname": "Иван",
-      "surname": "Кулек",
-      "addresses": [{
-        "id": 1,
-        "isActive": true,
-        "title": "Дом",
-        "country": "Россия",
-        "city": "Москва",
-        "address": "ул. Пушкина, д. 777, кв. 111",
-        "postcode": 123322,
-        "additionalInfo": "домофон сломан, кричите, что есть сил"
-      },
-      {
-        "id": 2,
-        "isActive": false,
-        "title": "Работа",
-        "country": "Россия",
-        "city": "Москва",
-        "address": "ул. Пушкина, д. 777, кв. 111",
-        "postcode": 123322,
-        "additionalInfo": "домофон сломан, кричите, что есть сил"
-      }
-    ]
-    })
-    .then(function (response) {
-
-    })
-    .catch(function (error) {
-
-    });
+    // axios.patch(url, {
+    //
+    //   "addresses": arr
+    // })
+    // .then(function (response) {
+    //
+    // })
+    // .catch(function (error) {
+    //
+    // });
   }
 
 
@@ -88,13 +69,18 @@ class Step3 extends React.Component {
     let updatedAddresses = this.state.addresses.filter(function(address) {
         return address.id !== id;
     });
+    // let updatedAddresses = this.state.addresses.push({
+    //   "id": 2,
+    //   "isActive": false,
+    //   "title": "Работа",
+    //   "country": "Россия",
+    //   "city": "Москва",
+    //   "address": "ул. Пушкина, д. 777, кв. 111",
+    //   "postcode": 123322,
+    //   "additionalInfo": "домофон сломан, кричите, что есть сил"
+    // });
     var url = 'http://localhost:3001/user';
-    axios.post(url, {
-      "id":123,
-      "isAuth": false,
-      "uid": 123,
-      "firstname": "Иван",
-      "surname": "Кулек",
+    axios.patch(url, {
       "addresses": updatedAddresses
     })
     .then(function (response) {
@@ -104,8 +90,6 @@ class Step3 extends React.Component {
 
     });
   }
-
-
 
   render() {
     if(this.state.addresses.length < 1){
@@ -122,7 +106,7 @@ class Step3 extends React.Component {
             schema={newAdress}
             uiSchema={uiSchema}
             onChange={log("changed")}
-            onSubmit={onSubmit}
+            onSubmit={({formData}) => this.addNewAddress({formData})}
             onError={log("errors")}>
               <div>
                 <button type="submit" className="btn btn-primary">Submit</button>
@@ -135,43 +119,48 @@ class Step3 extends React.Component {
         </div>
       )
     }
-    return (
-      <div  className="row py-5">
-        <div className="col-12">
-          <h1>{this.props.heading}</h1>
-        </div>
-        <div className="col">
-        <legend>Ваши адреса:</legend>
-          {this.state.addresses.map(address =>
-            <div className="card mb-3" key={address.id}>
-              <div className="card-body">
-                <h4 className="card-title">{address.title}</h4>
-                <p className="card-text">{address.country}, {address.city}</p>
-                <p className="card-text">{address.address}, {address.postcode}</p>
-                <p className="card-text">{address.additionalInfo}</p>
-                <a href="#" className="btn btn-primary">Редактировать</a>
-                <button onClick={() => this.deleteAddress(address.id)} className="btn btn-danger">Удалить</button>
+    else {
+      return (
+        <div  className="row py-5">
+          <div className="col-12">
+            <h1>{this.props.heading}</h1>
+          </div>
+          <div className="col">
+          <legend>Ваши адреса:</legend>
+            {this.state.addresses.map(address =>
+              <div className="card mb-3" key={address.id}>
+                <div className="card-body">
+                  <h4 className="card-title">{address.title}</h4>
+                  <p className="card-text">{address.country}, {address.city}</p>
+                  <p className="card-text">{address.address}, {address.postcode}</p>
+                  <p className="card-text">{address.additionalInfo}</p>
+                  <div className="row justify-content-around " >
+                    <button type="button" className="btn btn-outline-primary">Редактировать</button>
+                    <button onClick={() => this.deleteAddress(address.id)} className="btn btn-outline-danger">Удалить</button>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+          <div className="col">
+            <Form
+            schema={newAdress}
+            uiSchema={uiSchema}
+            onChange={log("changed")}
+            onSubmit={({formData}) => this.addNewAddress({formData})}
+            onError={log("errors")}>
+              <div>
+                <button type="submit" className="btn btn-primary">Submit</button>
+              </div>
+            </Form>
+            <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
+              Добавить два адреса
+            </button>
+          </div>
         </div>
-        <div className="col">
-          <Form
-          schema={newAdress}
-          uiSchema={uiSchema}
-          onChange={log("changed")}
-          onSubmit={onSubmit}
-          onError={log("errors")}>
-            <div>
-              <button type="submit" className="btn btn-primary">Submit</button>
-            </div>
-          </Form>
-          <button onClick={() => this.addNewAddress} className="btn btn-warning my-5">
-            Добавить два адреса
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
+
   }
 }
 

@@ -33,8 +33,8 @@ class Step2 extends React.Component {
     super(props);
 
     this.state = {
-      registration: true,
-      isOrganization: true
+      registration: false,
+      isOrganization: false
     };
   }
 

@@ -81,7 +81,7 @@ class Register extends React.Component {
           onError={log("errors")}
           ErrorList={ErrorListTemplate} >
             <div>
-              <button type="submit" className="btn btn-primary">Регистрация</button>
+              <button type="submit" className="btn btn-primary">Войти</button>
             </div>
         </Form>
       </div>

@@ -50,6 +50,83 @@ const registerForm = {
   }
 };
 
+const organizationForm = {
+  "title": "Регистрация юр.лица",
+  "type": "object",
+  "properties": {
+    "stringFormats": {
+      "title": "",
+      "type": "object",
+      "required": [],
+      "properties": {
+        "organizationName": {
+          "type": "string",
+          "title": "Название организации"
+        },
+        "inn": {
+          "type": "string",
+          "title": "ИНН"
+        },
+        "kpp": {
+          "type": "string",
+          "title": "КПП"
+        },
+        "okpo": {
+          "type": "string",
+          "title": "ОКПО"
+        }
+      }
+    },
+    "billing": {
+      "title": "Банковские реквизиты",
+      "type": "object",
+      "required": [],
+      "properties": {
+        "checkingAccount": {
+          "type": "string",
+          "title": "Рассчетный счет"
+        },
+        "correspondentAccount": {
+          "type": "string",
+          "title": "Корр. счет"
+        },
+        "bik": {
+          "type": "string",
+          "title": "БИК"
+        },
+        "bankName": {
+          "type": "string",
+          "title": "Полное наименование банка"
+        }
+      }
+    }
+  }
+}
+
+const oform = {
+  "title": "A localisation form",
+  "type": "object",
+  "required": [
+    "lat",
+    "lon"
+  ],
+  "properties": {
+    "lat": {
+      "type": "number"
+    },
+    "lon": {
+      "type": "number"
+    }
+  }
+};
+
+const uioform ={
+  "ui:field": "geo",
+  "title": {
+    "classNames": "task-title foo-bar"
+  }
+};
+
 
 const uiSchema = {
   "email": {
@@ -120,12 +197,13 @@ class Register extends React.Component {
               </div>
               <div className="col-md-6">
                 <Form
-                schema={registerForm}
+                schema={organizationForm}
+                uiSchema={uioform}
                 onChange={log("changed")}
                 onSubmit={log("submitted")}
                 onError={log("errors")}
                 validate={validate}
-                ErrorList={ErrorListTemplate}  >
+                ErrorList={ErrorListTemplate}>
                   <div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                   </div>

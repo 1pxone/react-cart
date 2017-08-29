@@ -97,7 +97,8 @@ class Step1 extends React.Component {
     const products = this.state.cart.map(cartitem => (
       <tr key={cartitem.id}>
         <th><img src={cartitem.image} className="img-fluid rounded" width="40px" alt=""/></th>
-        <td>{cartitem.title}</td>
+        <td><p className="my-0">{cartitem.title}</p> <p className="my-0 py-0"><small>{cartitem.sku}</small></p>
+        </td>
         <td>{cartitem.price}</td>
         <td>
           <div className="input-group">
@@ -113,6 +114,14 @@ class Step1 extends React.Component {
 
     const subtotal = this.state.cart.reduce( function(cnt,o){ return cnt + o.price * o.count; }, 0);
     const productcount = this.state.cart.reduce( function(cnt,o){ return cnt + o.count; }, 0);
+
+
+    var fastorder;
+    if (this.props.isAuth) {
+      fastorder = <FastOrder />;
+    } else {
+      fastorder = "";
+    }
 
     return (
       <div  className="container py-5">
@@ -142,9 +151,9 @@ class Step1 extends React.Component {
             </div>
           </div>
         </div>
-        <div className="row">
-          <FastOrder />
-        </div>
+
+           {fastorder}
+
       </div>
     );
   }
