@@ -23,7 +23,22 @@ const uiSchema = {
 }
 
 const log = (type) => console.log.bind(console, type);
-const onSubmit = ({formData}) => console.log(formData);
+const onSubmit = ({formData}) => {
+  var url = 'http://localhost:3001/user';
+
+  axios.get(url)
+    .then(res => {
+
+        let addresses = res.data.addresses;
+        console.log(addresses);
+        addresses.push(formData);
+        axios.patch(url, {
+          "addresses": addresses
+        })
+      });
+
+};
+
 class Step3 extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +51,7 @@ class Step3 extends React.Component {
   }
 
   componentDidMount() {
+    console.log(onSubmit);
     var url = 'http://localhost:3001/user';
 
     axios.get(url)
@@ -47,15 +63,15 @@ class Step3 extends React.Component {
       });
   }
 
-  addNewAddress(){
+  addNewAddress(formData){
     let arr = [...this.state.addresses];
     let newAdresses = arr.push();
     console.log(arr);
+    console.log(formData);
     var url = 'http://localhost:3001/user';
-    // axios.patch(url, {
-    //
-    //   "addresses": arr
-    // })
+    axios.patch(url, {
+      "addresses": arr
+    })
     // .then(function (response) {
     //
     // })
@@ -92,6 +108,7 @@ class Step3 extends React.Component {
   }
 
   render() {
+
     if(this.state.addresses.length < 1){
       return (
         <div  className="row py-5">
@@ -147,7 +164,7 @@ class Step3 extends React.Component {
             schema={newAdress}
             uiSchema={uiSchema}
             onChange={log("changed")}
-            onSubmit={({formData}) => this.addNewAddress({formData})}
+            onSubmit={onSubmit}
             onError={log("errors")}>
               <div>
                 <button type="submit" className="btn btn-primary">Submit</button>
