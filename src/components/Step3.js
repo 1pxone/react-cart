@@ -7,6 +7,8 @@ const newAdress = {
   type: "object",
   required: ["title"],
   properties: {
+    id: {type: "number", default: 4},
+    isActive: {type: "boolean", default: false},
     title: {type: "string", title: "Название", default: "#" },
     country: {type: "string",title: "Страна", enum: ["Россия", "Казахстан", "Беларусь"],enumNames: ["Россия", "Казахстан", "Беларусь"],default: "Россия"},
     city: {type: "string", title: "Город"},
@@ -19,24 +21,35 @@ const newAdress = {
 const uiSchema = {
   "additionalInfo": {
     "ui:widget": "textarea"
-  }
+  },
+  isActive: {"ui:widget": "hidden"},
+  id: {"ui:widget": "hidden"}
 }
 
 const log = (type) => console.log.bind(console, type);
-const onSubmit = ({formData}) => {
-  var url = 'http://localhost:3001/user';
 
+(function getid(){
+  var url = 'http://localhost:3001/user';
   axios.get(url)
     .then(res => {
-
-        let addresses = res.data.addresses;
+        let addresses = res.data.addresses.length;
         console.log(addresses);
+    });
+});
+
+
+
+
+const onSubmit = ({formData}) => {
+  var url = 'http://localhost:3001/user';
+  axios.get(url)
+    .then(res => {
+        let addresses = res.data.addresses;
         addresses.push(formData);
         axios.patch(url, {
           "addresses": addresses
         })
-      });
-
+    });
 };
 
 class Step3 extends React.Component {
@@ -51,9 +64,7 @@ class Step3 extends React.Component {
   }
 
   componentDidMount() {
-    console.log(onSubmit);
     var url = 'http://localhost:3001/user';
-
     axios.get(url)
       .then(res => {
         if( res.data.addresses.length > 0){
@@ -66,18 +77,10 @@ class Step3 extends React.Component {
   addNewAddress(formData){
     let arr = [...this.state.addresses];
     let newAdresses = arr.push();
-    console.log(arr);
-    console.log(formData);
     var url = 'http://localhost:3001/user';
     axios.patch(url, {
       "addresses": arr
     })
-    // .then(function (response) {
-    //
-    // })
-    // .catch(function (error) {
-    //
-    // });
   }
 
 
@@ -85,16 +88,6 @@ class Step3 extends React.Component {
     let updatedAddresses = this.state.addresses.filter(function(address) {
         return address.id !== id;
     });
-    // let updatedAddresses = this.state.addresses.push({
-    //   "id": 2,
-    //   "isActive": false,
-    //   "title": "Работа",
-    //   "country": "Россия",
-    //   "city": "Москва",
-    //   "address": "ул. Пушкина, д. 777, кв. 111",
-    //   "postcode": 123322,
-    //   "additionalInfo": "домофон сломан, кричите, что есть сил"
-    // });
     var url = 'http://localhost:3001/user';
     axios.patch(url, {
       "addresses": updatedAddresses
@@ -108,7 +101,6 @@ class Step3 extends React.Component {
   }
 
   render() {
-
     if(this.state.addresses.length < 1){
       return (
         <div  className="row py-5">

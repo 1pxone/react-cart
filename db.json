@@ -127,6 +127,16 @@
         "address": "ул. Пушкина, д. 777, кв. 111",
         "postcode": 123322,
         "additionalInfo": "домофон сломан, кричите, что есть сил"
+      },
+      {
+        "id": 4,
+        "isActive": false,
+        "title": "#",
+        "country": "Россия",
+        "city": "123e",
+        "address": "34r3443",
+        "postcode": "efrferfe",
+        "additionalInfo": "feferferf"
       }
     ]
   },
