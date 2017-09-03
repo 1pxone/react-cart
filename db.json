@@ -109,7 +109,7 @@
     "surname": "Кулек",
     "addresses": [
       {
-        "id": 2,
+        "id": 0,
         "isActive": true,
         "title": "Дом 2",
         "country": "Россия",
@@ -119,7 +119,7 @@
         "additionalInfo": "домофон сломан, кричите, что есть сил"
       },
       {
-        "id": 3,
+        "id": 1,
         "isActive": false,
         "title": "Работа",
         "country": "Россия",
@@ -127,16 +127,6 @@
         "address": "ул. Пушкина, д. 777, кв. 111",
         "postcode": 123322,
         "additionalInfo": "домофон сломан, кричите, что есть сил"
-      },
-      {
-        "id": 4,
-        "isActive": false,
-        "title": "#",
-        "country": "Россия",
-        "city": "123e",
-        "address": "34r3443",
-        "postcode": "efrferfe",
-        "additionalInfo": "feferferf"
       }
     ]
   },
