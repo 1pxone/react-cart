@@ -102,11 +102,6 @@
     "title": "Оплата наличными при получении"
   },
   "user": {
-    "id": 123,
-    "isAuth": false,
-    "uid": 123,
-    "firstname": "Иван",
-    "surname": "Кулек",
     "addresses": [
       {
         "id": 0,
