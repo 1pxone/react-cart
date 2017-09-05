@@ -69,7 +69,7 @@ class Step2 extends React.Component {
             <div className="col-12 py-0">
               <h1>{this.props.heading}</h1>
             </div>
-            <Login />
+            <Login col="col-4"/>
           </div>
         );
 

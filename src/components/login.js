@@ -72,7 +72,7 @@ class Register extends React.Component {
   render() {
     return (
 
-      <div className="col-4">
+      <div className={this.props.col}>
         <Form
           schema={loginForm}
           uiSchema={uiSchema}
@@ -82,6 +82,7 @@ class Register extends React.Component {
           ErrorList={ErrorListTemplate} >
             <div>
               <button type="submit" className="btn btn-primary">Войти</button>
+              <button type="button" className="btn btn-primary">Регистрация</button>
             </div>
         </Form>
       </div>

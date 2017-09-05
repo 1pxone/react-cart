@@ -130,7 +130,7 @@ class Step3 extends React.Component {
 
   setActiveAddress(id){
     let prevActive = this.state.addresses.filter(function(address) {
-        return address.isActive == true ;
+        return address.isActive === true ;
     });
 
     let arr = [...this.state.addresses];

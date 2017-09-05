@@ -8,7 +8,7 @@ import axios from 'axios';
 class Stepper extends React.Component {
   constructor(props) {
     super(props);
-    
+
 
   }
 
@@ -29,7 +29,7 @@ class Stepper extends React.Component {
             </div>
             <div className="col">
               <span className="circle">2</span>
-              <span className="">Выбор адреса</span>
+              <span className="">Выбор доставки</span>
             </div>
             <div className="col">
               <span className="circle">3</span>
@@ -51,7 +51,7 @@ class Stepper extends React.Component {
             </div>
             <div className="col">
               <span className="circle bg-primary">2</span>
-              <span className="">Выбор адреса</span>
+              <span className="">Выбор доставки</span>
             </div>
             <div className="col">
               <span className="circle">3</span>
@@ -72,7 +72,7 @@ class Stepper extends React.Component {
             </div>
             <div className="col">
               <span className="circle bg-success"><i className="fa fa-check" aria-hidden="true"></i></span>
-              <span className="">Выбор адреса</span>
+              <span className="">Выбор доставки</span>
             </div>
             <div className="col">
               <span className="circle bg-primary">3</span>
@@ -93,7 +93,7 @@ class Stepper extends React.Component {
               </div>
               <div className="col">
                 <span className="circle bg-success"><i className="fa fa-check" aria-hidden="true"></i></span>
-                <span className="">Выбор адреса</span>
+                <span className="">Выбор доставки</span>
               </div>
               <div className="col">
                 <span className="circle bg-success"><i className="fa fa-check" aria-hidden="true"></i></span>

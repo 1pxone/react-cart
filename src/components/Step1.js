@@ -21,6 +21,7 @@ class Step1 extends React.Component {
     this.increaseQnty = this.increaseQnty.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.sendpromocode = this.sendpromocode.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -44,12 +45,11 @@ class Step1 extends React.Component {
            }
         }
     });
-
-    this.setState(newState);
     var url = 'http://localhost:3001/summary';
-    axios.post(url, {cart: this.state.cart})
-    .then(function (response) {
+    axios.post(url, newState)
+    .then(res => {
 
+      this.setState(res.data);
     })
     .catch(function (error) {
 
@@ -68,11 +68,10 @@ class Step1 extends React.Component {
            }
         }
     });
-    this.setState(newState);
     var url = 'http://localhost:3001/summary';
-    axios.post(url, {cart: this.state.cart})
-    .then(function (response) {
-
+    axios.post(url, newState)
+    .then(res => {
+      this.setState(res.data);
     })
     .catch(function (error) {
 
@@ -89,6 +88,30 @@ class Step1 extends React.Component {
     this.setState({cart: curretState });
   }
 
+  handleChange(id,e) {
+  //  this.setState({value: event.target.value});
+    function findItem(item) {
+        return item.id === id;
+    };
+    var itemindex = this.state.cart.findIndex(findItem);
+    console.log(e.target.value)
+    let newState = update(this.state, {
+       "cart": {
+          [itemindex ]: {
+                   "count": { $set: e.target.value * 1}
+           }
+        }
+    });
+    var url = 'http://localhost:3001/summary';
+    axios.post(url, newState)
+    .then(res => {
+      this.setState(res.data);
+    })
+    .catch(function (error) {
+
+    });
+  }
+
   sendpromocode(){
 
   }
@@ -103,7 +126,7 @@ class Step1 extends React.Component {
         <td>
           <div className="input-group">
             <span className="input-group-btn"><button type="button" className="btn btn-info" disabled={cartitem.count < 2 ? 'disabled' : null} onClick={() => this.decreaseQnty(cartitem.id)}><i className="fa fa-minus" aria-hidden="true"></i></button></span>
-            <input type="text" className="form-control" value={cartitem.count} min="1" max="1000" />
+            <input type="text" className="form-control" value={cartitem.count} onChange={(e) => this.handleChange(cartitem.id,e)} min="1" max="1000" ref="qty"/>
             <span className="input-group-btn"><button type="button" className="btn btn-info"  onClick={() => this.increaseQnty(cartitem.id)}><i className="fa fa-plus" aria-hidden="true"></i></button></span>
           </div>
         </td>
