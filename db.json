@@ -105,7 +105,7 @@
     "addresses": [
       {
         "id": 0,
-        "isActive": true,
+        "isActive": false,
         "title": "Дом 2",
         "country": "Россия",
         "city": "Москва",
@@ -115,7 +115,7 @@
       },
       {
         "id": 1,
-        "isActive": false,
+        "isActive": true,
         "title": "Работа",
         "country": "Россия",
         "city": "Москва",

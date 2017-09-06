@@ -63,6 +63,7 @@ class Step3 extends React.Component {
     this.deleteAddress = this.deleteAddress.bind(this);
     this.editAddress = this.editAddress.bind(this);
     this.setActiveAddress = this.setActiveAddress.bind(this);
+    this.deactivateAddresses = this.deactivateAddresses.bind(this);
   }
 
   componentDidMount() {
@@ -130,6 +131,29 @@ class Step3 extends React.Component {
           this.setState({...this.state, addresses});
       })
     }
+    this.deactivateAddresses();
+  }
+
+  deactivateAddresses(){
+    let prevActive = this.state.addresses.filter(function(address) {
+        return address.isActive === true ;
+    });
+    console.log(prevActive);
+    let arr = [...this.state.addresses];
+    var url = 'http://localhost:3001/user';
+    // if (prevActive[0].id !== id){
+    //   let newState = update(this.state, {
+    //    "addresses": {
+    //       [id]: {"isActive": { $set: true }},
+    //       [prevActive[0].id]: {"isActive": { $set: false }}
+    //      }
+    //   });
+    //   axios.post(url, {addresses: newState.addresses})
+    //   .then(res => {
+    //       const addresses = res.data.addresses.map(obj => obj);
+    //       this.setState({...this.state, addresses});
+    //   })
+    // }
   }
 
   render() {
