@@ -70,62 +70,27 @@ class Step3 extends React.Component {
     axios.get(url)
       .then(res => {
         if( res.data.addresses.length > 0){
-          // let addressesCount = res.data.addresses.length;
-          // console.log(addressesCount);
           let maxObj=res.data.addresses.reduce((prev,cur) => cur.id>prev.id?cur:prev,{id:-Infinity});
           const addresses = res.data.addresses.map(obj => obj);
           this.setState({addresses,schema: {...this.state.schema, properties: {...this.state.schema.properties, id:{type: "number", default: maxObj.id + 1},  title: {type: "string", title: "Название", default: "Адрес #" + maxObj.id + 1 }}}});
         }
       });
-  }
+  };
 
   addNewAddress(data){
-    // console.log(data.formData);
-    let prevActive = this.state.addresses.filter(function(address) {
-        return address.isActive === true ;
-    });
-
-    console.log(prevActive);
-
-
-
-    let newState = update(this.state, {
-       "addresses": {
-              [prevActive[0].id]: {
-                       "isActive": { $set: false }
-               }
-           }
-
-
-    });
-    console.log(newState);
-    axios.post(url, {addresses: newState.addresses})
-    .then(res => {
-
-        const addresses = res.data.addresses.map(obj => obj);
-        this.setState({...this.state, addresses});
-    })
-    .catch(err => {
-
-    });
-
-
     let arr = [...this.state.addresses];
     arr.push(data.formData);
     var url = 'http://localhost:3001/user';
     axios.patch(url, {
       "addresses": arr
     }).then(res => {
-        // let addressesCount = res.data.addresses.length;
         let maxObj=res.data.addresses.reduce((prev,cur) => cur.id>prev.id?cur:prev,{id:-Infinity});
         const addresses = res.data.addresses.map(obj => obj);
         this.setState({addresses,schema: {...this.state.schema, properties: {...this.state.schema.properties, id:{type: "number", default: maxObj.id + 1}}}});
     });
   };
 
-
   deleteAddress(id,e){
-
     e.stopPropagation();
     let updatedAddresses = this.state.addresses.filter(function(address) {
         return address.id !== id;
@@ -140,107 +105,31 @@ class Step3 extends React.Component {
   }
 
   editAddress(id,e){
-
     e.stopPropagation();
-    // let targetAddress = this.state.addresses.filter(function(address) {
-    //     return address.id == id;
-    // });
     var url = 'http://localhost:3001/user';
-    // console.log(this.state.addresses[id]);
     let targetData = this.state.addresses[id];
-    // saveTargetAddress(this.state.addresses[id])
     this.setState({...this.state, formData: targetData});
-
-  }
-
-  // saveEditedAddress(id)
-
-
+  };
 
   setActiveAddress(id){
     let prevActive = this.state.addresses.filter(function(address) {
         return address.isActive === true ;
     });
-    console.log(prevActive);
     let arr = [...this.state.addresses];
     var url = 'http://localhost:3001/user';
-
-    if (prevActive.length > 0){
-      console.log(prevActive[0].id);
-      // let resetActive = update(this.state, {
-      //    "addresses": {
-      //       [prevActive[0].id]: {
-      //                "isActive": { $set: false }
-      //        }
-      //     }
-      // });
-
-      // axios.post(url, {addresses: resetActive})
-      // .then(res => {
-      //     // console.log(res.data);
-      //     const addresses = res.data.addresses.map(obj => obj);
-      //     // this.setState({addresses});
-      // })
-
-      // axios.patch(url, {
-      //   "addresses": resetActive
-      // })
-
-
-
-      // let newState = update(this.state, {
-      //    "addresses": {
-      //       [prevActive[0].id]: {
-      //                "isActive": { $set: false }
-      //        }
-      //     }
-      // });
-      // axios.post(url, {addresses: newState.addresses})
-      // .then(res => {
-      //     console.log(res.data.addresses);
-      //     // const addresses = res.data.addresses.map(obj => obj);
-      //     this.setState({...this.state, addresses: res.data.addresses });
-      // })
-      // .catch(err => {
-      //
-      // });
-
-    }
-
-    // console.log(this.state.addresses[id]);
-    // this.setState({addresses, schema:this.state.schema,uiSchema:this.state.uiSchema});
-    // this.state.addresses[id].isActive = true;
-
-
-
-    // function findItem(item) {
-    //     return item.id === id;
-    // };
-    // var itemindex = this.state.addresses.findIndex(findItem);
-    let newState = update(this.state, {
+    if (prevActive[0].id !== id){
+      let newState = update(this.state, {
        "addresses": {
-          [id]: {
-                   "isActive": { $set: true }
-           },
-              [prevActive[0].id]: {
-                       "isActive": { $set: false }
-               }
-
-           }
-
-
-    });
-    axios.post(url, {addresses: newState.addresses})
-    .then(res => {
-
-        const addresses = res.data.addresses.map(obj => obj);
-        this.setState({...this.state, addresses});
-    })
-    .catch(err => {
-
-    });
-
-
+          [id]: {"isActive": { $set: true }},
+          [prevActive[0].id]: {"isActive": { $set: false }}
+         }
+      });
+      axios.post(url, {addresses: newState.addresses})
+      .then(res => {
+          const addresses = res.data.addresses.map(obj => obj);
+          this.setState({...this.state, addresses});
+      })
+    }
   }
 
   render() {
@@ -316,7 +205,5 @@ class Step3 extends React.Component {
 
   }
 }
-
-
 
 export default Step3;
