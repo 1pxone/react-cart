@@ -64,8 +64,9 @@ class Navbar extends React.Component {
                     <i className="fa fa-user-o" aria-hidden="true"></i>
                   </a>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    
+                    <div id="dropdown-login">
                     <Login col="col-12"/>
+                    </div>
                   </div>
                 </li>
               </ul>

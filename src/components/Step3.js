@@ -41,7 +41,7 @@ class Step3 extends React.Component {
         required: ["title"],
         properties: {
           id: {type: "number", default: 5},
-          isActive: {type: "boolean", default: false},
+          isActive: {type: "boolean", default: true},
           title: {type: "string", title: "Название", default: "#" },
           country: {type: "string",title: "Страна", enum: ["Россия", "Казахстан", "Беларусь"],enumNames: ["Россия", "Казахстан", "Беларусь"],default: "Россия"},
           city: {type: "string", title: "Город"},
@@ -81,6 +81,35 @@ class Step3 extends React.Component {
 
   addNewAddress(data){
     // console.log(data.formData);
+    let prevActive = this.state.addresses.filter(function(address) {
+        return address.isActive === true ;
+    });
+
+    console.log(prevActive);
+
+
+
+    let newState = update(this.state, {
+       "addresses": {
+              [prevActive[0].id]: {
+                       "isActive": { $set: false }
+               }
+           }
+
+
+    });
+    console.log(newState);
+    axios.post(url, {addresses: newState.addresses})
+    .then(res => {
+
+        const addresses = res.data.addresses.map(obj => obj);
+        this.setState({...this.state, addresses});
+    })
+    .catch(err => {
+
+    });
+
+
     let arr = [...this.state.addresses];
     arr.push(data.formData);
     var url = 'http://localhost:3001/user';
@@ -132,7 +161,7 @@ class Step3 extends React.Component {
     let prevActive = this.state.addresses.filter(function(address) {
         return address.isActive === true ;
     });
-
+    console.log(prevActive);
     let arr = [...this.state.addresses];
     var url = 'http://localhost:3001/user';
 
@@ -193,10 +222,13 @@ class Step3 extends React.Component {
           [id]: {
                    "isActive": { $set: true }
            },
-           [prevActive[0].id]: {
-                    "isActive": { $set: false }
-            }
-        }
+              [prevActive[0].id]: {
+                       "isActive": { $set: false }
+               }
+
+           }
+
+
     });
     axios.post(url, {addresses: newState.addresses})
     .then(res => {

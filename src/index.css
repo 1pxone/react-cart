@@ -14,3 +14,6 @@ body {
     line-height: 24px;
     margin-right: 8px;
 }
+div#dropdown-login {
+    min-width: 270px;
+}
